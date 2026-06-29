@@ -394,17 +394,9 @@
   }
 
   function downloadArtwork() {
-    const exportCanvas = document.createElement('canvas');
-    const dpr = window.devicePixelRatio || 1;
-    exportCanvas.width = drawCanvas.width;
-    exportCanvas.height = drawCanvas.height;
-    const ctx = exportCanvas.getContext('2d');
-    ctx.drawImage(paperCanvas, 0, 0);
-    ctx.drawImage(drawCanvas, 0, 0);
-
     const link = document.createElement('a');
     link.download = 'cryon-studio-drawing.png';
-    link.href = exportCanvas.toDataURL('image/png');
+    link.href = buildExportCanvas().toDataURL('image/png');
     link.click();
   }
 
@@ -448,4 +440,34 @@
 
   setTool('brush');
   resizeCanvases();
+
+  function buildExportCanvas() {
+    const exportCanvas = document.createElement('canvas');
+    exportCanvas.width = drawCanvas.width;
+    exportCanvas.height = drawCanvas.height;
+    const ctx = exportCanvas.getContext('2d');
+    ctx.drawImage(paperCanvas, 0, 0);
+    ctx.drawImage(drawCanvas, 0, 0);
+    return exportCanvas;
+  }
+
+  function isCanvasBlank() {
+    const data = drawCtx.getImageData(0, 0, drawCanvas.width, drawCanvas.height).data;
+    for (let i = 3; i < data.length; i += 4) {
+      if (data[i] > 0) return false;
+    }
+    return true;
+  }
+
+  window.cryonDrawingStudio = {
+    isBlank: isCanvasBlank,
+    getArtworkDataUrl() {
+      return buildExportCanvas().toDataURL('image/jpeg', 0.82);
+    },
+    getArtworkBlob() {
+      return new Promise((resolve) => {
+        buildExportCanvas().toBlob((blob) => resolve(blob), 'image/jpeg', 0.82);
+      });
+    },
+  };
 })();

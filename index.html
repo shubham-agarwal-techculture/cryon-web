@@ -91,7 +91,7 @@
           of a kitchen table to the bustle of a harbor afternoon.
         </p>
 
-        <div class="collection-grid">
+        <div class="collection-grid" id="static-collection-grid">
           <article class="collection-card">
             <div class="collection-card__image">
               <img src="images/harvest-still-life.png" alt="Harvest Still Life">
@@ -145,6 +145,16 @@
               </div>
             </div>
           </article>
+        </div>
+
+        <div class="user-gallery-wrap" id="user-gallery-wrap" hidden>
+          <p class="section-label section-label--user">From the drawing studio</p>
+          <h3 class="user-gallery-heading">Visitor Sketches</h3>
+          <p class="section-desc user-gallery-desc">
+            Drawings made in the studio — titles and descriptions written by open-source AI
+            (BLIP + Flan-T5, running in your browser).
+          </p>
+          <div class="collection-grid" id="user-collection-grid"></div>
         </div>
       </div>
     </section>
@@ -252,9 +262,12 @@
               <button type="button" id="undo-btn" class="action-btn" disabled title="Undo">Undo</button>
               <button type="button" id="redo-btn" class="action-btn" disabled title="Redo">Redo</button>
               <button type="button" id="clear-btn" class="action-btn action-btn--warn" title="Clear canvas">Clear</button>
+              <button type="button" id="gallery-btn" class="action-btn action-btn--gallery" title="Add to gallery with AI caption">Add to Gallery</button>
               <button type="button" id="download-btn" class="action-btn action-btn--primary" title="Download drawing">Save PNG</button>
             </div>
           </aside>
+
+            <div id="gallery-status" class="gallery-status" role="status" aria-live="polite" hidden></div>
 
             <div class="canvas-wrap" role="img" aria-label="Drawing canvas on textured paper">
               <canvas id="paper-canvas" aria-hidden="true"></canvas>
@@ -361,6 +374,8 @@
 
   <script src="js/nav.js" defer></script>
   <script src="js/drawing-studio.js" defer></script>
+  <script type="module" src="js/gallery.js"></script>
+  <script type="module" src="js/studio-gallery.js"></script>
 
   <footer class="site-footer">
     <div class="footer-logo">

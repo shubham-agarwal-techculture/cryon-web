@@ -368,6 +368,74 @@ section {
 .tag-harvest { background: var(--periwinkle); color: white; }
 .tag-harbor { background: var(--teal); color: white; }
 .tag-portrait { background: var(--coral); color: white; }
+.tag-sketch { background: var(--lime); color: var(--forest); }
+
+.user-gallery-wrap {
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 2px dashed var(--teal);
+}
+
+.user-gallery-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  color: var(--royal);
+  margin-bottom: 0.5rem;
+}
+
+.user-gallery-desc {
+  margin-bottom: 2rem;
+}
+
+.collection-card--user {
+  animation: card-enter 0.45s ease-out;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gallery-status {
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 2px solid var(--teal);
+  background: var(--sky);
+  color: var(--royal);
+}
+
+.gallery-status--success {
+  background: rgba(186, 218, 85, 0.35);
+  border-color: var(--forest);
+  color: var(--forest);
+}
+
+.gallery-status--warn {
+  background: rgba(255, 179, 153, 0.45);
+  border-color: var(--coral);
+  color: var(--text);
+}
+
+.gallery-status--error {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: var(--coral);
+  color: var(--royal);
+}
+
+.action-btn--gallery {
+  background: var(--periwinkle);
+  color: white;
+  border-color: var(--royal);
+}
 
 .collection-card h3 {
   font-family: var(--font-display);
@@ -1077,6 +1145,10 @@ section {
   }
 
   .toolbar-group--actions .action-btn--primary {
+    grid-column: 1 / -1;
+  }
+
+  .toolbar-group--actions .action-btn--gallery {
     grid-column: 1 / -1;
   }
 
