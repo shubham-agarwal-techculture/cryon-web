@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cryon Studio — a pastel art gallery celebrating hand-drawn still life, harbor scenes, and expressive portraits.">
+  <title>Cryon Studio — Pastel Art Gallery</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="icon-leaf" viewBox="0 0 32 32">
+      <path d="M16 4 C6 8, 4 20, 8 28 C14 22, 24 18, 28 10 C22 6, 16 4, 16 4Z" fill="#2F4F4F"/>
+      <path d="M16 4 C16 14, 12 22, 8 28" stroke="#BADA55" stroke-width="1.5" fill="none"/>
+    </symbol>
+    <symbol id="icon-boat" viewBox="0 0 32 32">
+      <path d="M4 20 L28 20 L24 26 L8 26 Z" fill="#1a1a1a"/>
+      <path d="M16 8 L16 20 M10 14 L16 8 L22 14" stroke="#008080" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-palette" viewBox="0 0 32 32">
+      <ellipse cx="16" cy="16" rx="12" ry="10" fill="#FF8A80" stroke="#1A237E" stroke-width="2"/>
+      <circle cx="10" cy="14" r="2.5" fill="#87CEEB"/>
+      <circle cx="16" cy="10" r="2.5" fill="#BADA55"/>
+      <circle cx="22" cy="14" r="2.5" fill="#FFB399"/>
+      <circle cx="18" cy="20" r="2.5" fill="#6A5ACD"/>
+    </symbol>
+    <symbol id="icon-brush" viewBox="0 0 32 32">
+      <rect x="6" y="20" width="8" height="6" rx="1" fill="#FFB399" transform="rotate(-30 10 23)"/>
+      <path d="M14 18 L26 6" stroke="#2F4F4F" stroke-width="3" stroke-linecap="round"/>
+      <path d="M24 4 C28 6, 28 10, 26 12" stroke="#FF6B6B" stroke-width="2" fill="none"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo" aria-label="Cryon Studio home">
+        <img src="assets/logo.svg" alt="Cryon Studio">
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="#collections">Gallery</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#journal">Journal</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-content">
+        <span class="hero-badge">Hand-drawn &amp; heartfelt</span>
+        <h1 id="hero-heading">Where <em>pastel</em> meets paper</h1>
+        <p>
+          Cryon Studio is a small gallery of crayon and oil-pastel works —
+          rustic still lifes, sun-soaked cityscapes, and bold portrait studies
+          drawn with color, not convention.
+        </p>
+        <div class="hero-actions">
+          <a href="#collections" class="btn btn-primary">View the gallery</a>
+          <a href="#about" class="btn btn-secondary">Meet the artist</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-collage">
+          <img src="images/harvest-still-life.png" alt="Still life of fruit in a bowl with a vase of leaves">
+          <img src="images/harbor-view.png" alt="Waterfront city scene with two figures on a yellow deck">
+          <img src="images/portrait-study.png" alt="Expressive pastel portrait with blue hair">
+        </div>
+      </div>
+    </section>
+
+    <section id="collections" class="collections" aria-labelledby="collections-heading">
+      <div class="section-inner">
+        <p class="section-label">Three collections</p>
+        <h2 id="collections-heading" class="section-title">The Summer Series</h2>
+        <p class="section-desc">
+          Each piece explores a different palette and mood — from the quiet warmth
+          of a kitchen table to the bustle of a harbor afternoon.
+        </p>
+
+        <div class="collection-grid">
+          <article class="collection-card">
+            <div class="collection-card__image">
+              <img src="images/harvest-still-life.png" alt="Harvest Still Life">
+            </div>
+            <div class="collection-card__body">
+              <span class="collection-tag tag-harvest">Harvest</span>
+              <h3>Summer Harvest</h3>
+              <p>
+                Limes and peaches in a hand-thrown bowl, a sprig of leaves in
+                terracotta — the colors of a slow afternoon in the kitchen.
+              </p>
+              <div class="collection-meta">
+                <span>Oil pastel on paper</span>
+                <span>24 × 18 in</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="collection-card">
+            <div class="collection-card__image">
+              <img src="images/harbor-view.png" alt="Harbor View">
+            </div>
+            <div class="collection-card__body">
+              <span class="collection-tag tag-harbor">Harbor</span>
+              <h3>Deck Chairs at Noon</h3>
+              <p>
+                Two figures watch the water from a sun-yellow pier. Teal fences,
+                peach promenades, and a skyline drawn from memory.
+              </p>
+              <div class="collection-meta">
+                <span>Crayon on textured paper</span>
+                <span>30 × 22 in</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="collection-card">
+            <div class="collection-card__image">
+              <img src="images/portrait-study.png" alt="Portrait Study">
+            </div>
+            <div class="collection-card__body">
+              <span class="collection-tag tag-portrait">Portrait</span>
+              <h3>Study in Coral</h3>
+              <p>
+                An expressive head-and-shoulders portrait — pink skin tones, icy
+                blue hair, and a gaze that holds its own against the yellow field.
+              </p>
+              <div class="collection-meta">
+                <span>Colored pencil &amp; pastel</span>
+                <span>16 × 20 in</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" aria-label="Studio highlights">
+      <div class="section-inner">
+        <div class="feature-grid">
+          <div class="feature-item">
+            <svg class="feature-icon" aria-hidden="true"><use href="#icon-palette"/></svg>
+            <h4>Bold Palettes</h4>
+            <p>Periwinkle, teal, coral, and cream — color as emotion, not realism.</p>
+          </div>
+          <div class="feature-item">
+            <svg class="feature-icon" aria-hidden="true"><use href="#icon-brush"/></svg>
+            <h4>Textured Strokes</h4>
+            <p>Visible grain and waxy layers that reward a closer look.</p>
+          </div>
+          <div class="feature-item">
+            <svg class="feature-icon" aria-hidden="true"><use href="#icon-leaf"/></svg>
+            <h4>Organic Forms</h4>
+            <p>Fruit, foliage, and faces drawn with soft, imperfect lines.</p>
+          </div>
+          <div class="feature-item">
+            <svg class="feature-icon" aria-hidden="true"><use href="#icon-boat"/></svg>
+            <h4>Place &amp; Memory</h4>
+            <p>Scenes remembered rather than photographed — harbor, home, and self.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about" aria-labelledby="about-heading">
+      <div class="section-inner about-grid">
+        <div class="about-image">
+          <img src="images/portrait-study.png" alt="Artist self-portrait in pastel">
+        </div>
+        <div class="about-content">
+          <p class="section-label">About the studio</p>
+          <h2 id="about-heading" class="section-title">Drawn by hand, colored by feeling</h2>
+          <blockquote>"I don't paint what I see — I paint what the light feels like."</blockquote>
+          <p>
+            Cryon Studio began on a kitchen table with a box of student-grade
+            pastels and nowhere particular to be. What started as still-life
+            exercises — a bowl of limes, a napkin with a grid — grew into a
+            larger conversation about place, weather, and the people who occupy
+            quiet rooms.
+          </p>
+          <p>
+            Every work in the Summer Series shares a pale yellow ground, the
+            color of late-morning sun through thin curtains. From there, each
+            piece branches into its own world: the deep periwinkle of a tablecloth,
+            the teal of a harbor railing, the coral flush of a candid portrait.
+          </p>
+          <div class="palette-swatches" aria-label="Studio color palette">
+            <span class="swatch" style="background:#FFFBD1" title="Cream"></span>
+            <span class="swatch" style="background:#6A5ACD" title="Periwinkle"></span>
+            <span class="swatch" style="background:#008080" title="Teal"></span>
+            <span class="swatch" style="background:#FFB399" title="Peach"></span>
+            <span class="swatch" style="background:#FF6B6B" title="Coral"></span>
+            <span class="swatch" style="background:#BADA55" title="Lime"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="journal" class="journal" aria-labelledby="journal-heading">
+      <div class="section-inner">
+        <p class="section-label">From the sketchbook</p>
+        <h2 id="journal-heading" class="section-title">Studio Journal</h2>
+        <p class="section-desc">
+          Notes, process thoughts, and the small observations that become paintings.
+        </p>
+
+        <div class="journal-grid">
+          <article class="journal-card">
+            <p class="journal-date">June 12, 2026</p>
+            <h4>On the tablecloth blue</h4>
+            <p>
+              Mixed three blues before landing on periwinkle — it sits between
+              the limes and the peaches without shouting. The napkin grid took
+              longer than the fruit.
+            </p>
+          </article>
+          <article class="journal-card">
+            <p class="journal-date">June 8, 2026</p>
+            <h4>Harbor from the deck</h4>
+            <p>
+              Drew the fence first. Everything else arranged itself around that
+              teal grid. The two figures came last — they needed to feel like
+              they belonged to the view, not the viewer.
+            </p>
+          </article>
+          <article class="journal-card">
+            <p class="journal-date">June 3, 2026</p>
+            <h4>Pink is not a skin tone</h4>
+            <p>
+              Started the portrait as an exercise in wrong colors. The blue hair
+              was accidental; I liked it too much to fix. Sometimes the mistake
+              is the point.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-heading">
+      <div class="section-inner">
+        <p class="section-label">Get in touch</p>
+        <h2 id="contact-heading" class="section-title">Commission a piece</h2>
+        <p class="section-desc" style="margin-left:auto;margin-right:auto;">
+          Interested in a portrait, a place, or a still life from your own table?
+          Send a note — I reply within a few days.
+        </p>
+
+        <form class="contact-form" action="#" method="post" onsubmit="event.preventDefault(); alert('Thanks! This is a demo form — no message was sent.');">
+          <input type="text" name="name" placeholder="Your name" required aria-label="Your name">
+          <input type="email" name="email" placeholder="Email address" required aria-label="Email address">
+          <textarea name="message" placeholder="Tell me about the piece you have in mind…" required aria-label="Message"></textarea>
+          <button type="submit" class="btn btn-primary" style="align-self:center;">Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-logo">
+      <img src="assets/logo.svg" alt="Cryon Studio">
+    </div>
+    <ul class="footer-links">
+      <li><a href="#collections">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="mailto:hello@cryon.studio">hello@cryon.studio</a></li>
+    </ul>
+    <p class="footer-copy">&copy; 2026 Cryon Studio. All works shown are original pastels.</p>
+  </footer>
+
+</body>
+</html>

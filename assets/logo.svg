@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" fill="none">
+  <path d="M8 36 C12 8, 28 4, 36 20 C44 36, 52 40, 60 24" stroke="#6A5ACD" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <circle cx="72" cy="22" r="10" fill="#FFB399" stroke="#2F4F4F" stroke-width="2"/>
+  <path d="M88 14 L96 34 L104 14" stroke="#008080" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="112" y="30" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="#1A237E">Cryon</text>
+</svg>
