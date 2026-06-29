@@ -1,4 +1,4 @@
-import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.0';
+import { pipeline, env, RawImage } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.0/dist/transformers.min.js';
 
 env.allowLocalModels = false;
 env.useBrowserCache = true;
@@ -6,37 +6,25 @@ env.useBrowserCache = true;
 let imageCaptioner = null;
 let titleGenerator = null;
 
-async function loadImage(dataUrl) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = dataUrl;
-  });
-}
-
-async function resizeForModel(dataUrl, maxSize = 384) {
-  const img = await loadImage(dataUrl);
-  const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
-  const width = Math.max(1, Math.round(img.width * scale));
-  const height = Math.max(1, Math.round(img.height * scale));
-  const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-  return canvas.toDataURL('image/jpeg', 0.9);
+function extractGeneratedText(result) {
+  if (!result) return '';
+  if (Array.isArray(result)) {
+    return result[0]?.generated_text?.trim() ?? '';
+  }
+  return result.generated_text?.trim() ?? '';
 }
 
 function fallbackTitle(caption) {
   let text = caption
     .replace(/^(a|an|the)\s+/i, '')
     .replace(/^(drawing|painting|sketch|image|picture|photo)\s+of\s+/i, '');
-  return text
+  const title = text
     .split(/\s+/)
     .filter(Boolean)
     .slice(0, 5)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(' ');
+  return title || 'Untitled Sketch';
 }
 
 function polishDescription(caption) {
@@ -50,13 +38,15 @@ function polishDescription(caption) {
 async function generateTitle(caption) {
   try {
     if (!titleGenerator) {
-      titleGenerator = await pipeline('text2text-generation', 'Xenova/flan-t5-small');
+      titleGenerator = await pipeline('text2text-generation', 'Xenova/flan-t5-small', {
+        dtype: 'q8',
+      });
     }
     const output = await titleGenerator(
       `Write a short poetic art gallery title, 3 to 6 words, for: ${caption}`,
-      { max_new_tokens: 18, temperature: 0.7 }
+      { max_new_tokens: 18 }
     );
-    let title = output[0]?.generated_text?.trim().replace(/^["']|["']$/g, '');
+    let title = extractGeneratedText(output).replace(/^["']|["']$/g, '');
     if (!title || title.length < 3) throw new Error('Empty title');
     if (title.length > 64) title = title.slice(0, 61) + '…';
     return title;
@@ -73,13 +63,15 @@ async function generateTitle(caption) {
 export async function describeArtwork(imageDataUrl, onProgress) {
   onProgress?.('Loading BLIP image-captioning model…');
   if (!imageCaptioner) {
-    imageCaptioner = await pipeline('image-to-text', 'Xenova/blip-image-captioning-base');
+    imageCaptioner = await pipeline('image-to-text', 'Xenova/blip-image-captioning-base', {
+      dtype: 'q8',
+    });
   }
 
   onProgress?.('Analyzing your drawing…');
-  const modelImage = await resizeForModel(imageDataUrl);
-  const result = await imageCaptioner(modelImage);
-  const caption = result[0]?.generated_text?.trim() || 'a pastel sketch on paper';
+  const image = await RawImage.read(imageDataUrl);
+  const result = await imageCaptioner(image);
+  const caption = extractGeneratedText(result) || 'a pastel sketch on paper';
 
   onProgress?.('Generating gallery title with Flan-T5…');
   const title = await generateTitle(caption);

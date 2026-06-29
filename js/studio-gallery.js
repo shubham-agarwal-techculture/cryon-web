@@ -1,9 +1,9 @@
-import { describeArtwork, fallbackMetadata } from './art-captioner.js';
 import { addArtwork } from './gallery.js';
 
 const galleryBtn = document.getElementById('gallery-btn');
 const statusEl = document.getElementById('gallery-status');
 let statusTimer = null;
+let captionerModule = null;
 
 function showStatus(message, type = 'loading') {
   if (!statusEl) return;
@@ -36,6 +36,13 @@ function waitForStudio() {
   });
 }
 
+async function loadCaptioner() {
+  if (!captionerModule) {
+    captionerModule = await import('./art-captioner.js');
+  }
+  return captionerModule;
+}
+
 galleryBtn?.addEventListener('click', async () => {
   const studio = await waitForStudio();
 
@@ -54,9 +61,16 @@ galleryBtn?.addEventListener('click', async () => {
     let usedFallback = false;
 
     try {
+      const { describeArtwork, fallbackMetadata } = await loadCaptioner();
       metadata = await describeArtwork(imageData, showStatus);
     } catch (error) {
       console.error('AI captioning failed:', error);
+      const { fallbackMetadata } = await loadCaptioner().catch(() => ({
+        fallbackMetadata: () => ({
+          title: 'Untitled Sketch',
+          description: 'A hand-drawn pastel sketch on textured paper, created in the Cryon Studio.',
+        }),
+      }));
       metadata = fallbackMetadata();
       usedFallback = true;
     }
@@ -69,7 +83,7 @@ galleryBtn?.addEventListener('click', async () => {
       createdAt: Date.now(),
     };
 
-    addArtwork(artwork);
+    await addArtwork(artwork);
 
     if (usedFallback) {
       showStatus('Added to gallery with a default title (AI unavailable).', 'warn');
@@ -77,12 +91,12 @@ galleryBtn?.addEventListener('click', async () => {
       showStatus(`"${metadata.title}" was added to the gallery!`, 'success');
     }
 
-    const gallerySection = document.getElementById('user-gallery-wrap');
+    const gallerySection = document.getElementById('collections');
     gallerySection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     hideStatus(5000);
   } catch (error) {
     console.error('Gallery add failed:', error);
-    showStatus('Could not add to gallery. Please try again.', 'error');
+    showStatus(error.message || 'Could not add to gallery. Please try again.', 'error');
     hideStatus(5000);
   } finally {
     galleryBtn.disabled = false;
