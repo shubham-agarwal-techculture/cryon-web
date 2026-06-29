@@ -578,35 +578,82 @@ section {
   border-bottom: 3px dashed var(--peach);
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .drawing-studio {
-  display: grid;
-  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.studio-frame {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--text);
+  border-radius: 8px 16px 10px 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  background: white;
   min-width: 0;
 }
 
 .studio-toolbar {
-  background: white;
-  border: 2px solid var(--text);
-  border-radius: 8px 16px 10px 14px;
-  padding: 1.25rem;
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  box-shadow: var(--shadow-soft);
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem 1.25rem;
+  padding: 1rem 1.25rem;
+  background: white;
+  border-bottom: 2px dashed var(--peach);
   min-width: 0;
 }
 
 .toolbar-group {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.toolbar-group--tools {
+  flex: 1 1 auto;
+}
+
+.toolbar-group--colors {
+  flex: 1 1 100%;
+  order: 10;
+}
+
+.toolbar-group--sliders {
+  flex: 1 1 200px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.toolbar-group--actions {
+  flex: 0 1 auto;
+  margin-left: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .toolbar-label,
 .slider-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -614,19 +661,21 @@ section {
 }
 
 .tool-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
 }
 
 .tool-btn {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
-  padding: 0.5rem 0.35rem;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 52px;
+  padding: 0.45rem 0.5rem;
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
   color: var(--text);
   background: var(--cream);
@@ -637,8 +686,9 @@ section {
 }
 
 .tool-btn svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .tool-btn:hover {
@@ -652,15 +702,24 @@ section {
   transform: translateY(-1px);
 }
 
+.color-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .color-palette {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.35rem;
+  flex: 1 1 auto;
 }
 
 .color-swatch {
-  width: 100%;
-  aspect-ratio: 1;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
   border: 2px solid var(--text);
   border-radius: 50%;
   cursor: pointer;
@@ -680,27 +739,30 @@ section {
 }
 
 .color-swatch.is-active {
-  box-shadow: 0 0 0 3px white, 0 0 0 5px var(--coral);
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--coral);
   transform: scale(1.1);
 }
 
 .color-picker-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  flex-shrink: 0;
 }
 
 .color-picker-label input[type="color"] {
-  width: 100%;
+  width: 36px;
   height: 36px;
   border: 2px solid var(--text);
-  border-radius: 6px;
+  border-radius: 50%;
   cursor: pointer;
   padding: 2px;
   background: white;
+}
+
+.slider-field {
+  flex: 1 1 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
 }
 
 .studio-toolbar input[type="range"] {
@@ -709,23 +771,18 @@ section {
   cursor: pointer;
 }
 
-.toolbar-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.4rem;
-}
-
 .action-btn {
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 700;
-  padding: 0.55rem 0.5rem;
+  padding: 0.5rem 0.75rem;
   border: 2px solid var(--text);
   border-radius: 6px 10px 6px 8px;
   background: var(--cream);
   color: var(--text);
   cursor: pointer;
   transition: background 0.15s, transform 0.15s;
+  white-space: nowrap;
 }
 
 .action-btn:hover:not(:disabled) {
@@ -745,28 +802,17 @@ section {
 }
 
 .action-btn--primary {
-  grid-column: span 2;
   background: var(--teal);
   color: white;
   border-color: var(--royal);
-}
-
-.canvas-area {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  min-width: 0;
 }
 
 .canvas-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  max-height: min(70vh, 560px);
-  min-height: min(50vw, 280px);
-  border: 3px solid var(--text);
-  border-radius: 6px 14px 8px 12px;
-  box-shadow: var(--shadow-soft), inset 0 0 40px rgba(139, 105, 20, 0.06);
+  max-height: min(65vh, 560px);
+  min-height: min(45vw, 280px);
   overflow: hidden;
   background: #FFF4D6;
   touch-action: none;
@@ -873,34 +919,6 @@ section {
   .palette-swatches {
     justify-content: center;
   }
-
-  .drawing-studio {
-    grid-template-columns: 1fr;
-  }
-
-  .canvas-area {
-    order: 1;
-  }
-
-  .studio-toolbar {
-    order: 2;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem 1.25rem;
-  }
-
-  .toolbar-group:first-child {
-    grid-column: 1 / -1;
-  }
-
-  .toolbar-actions {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .action-btn--primary {
-    grid-column: span 1;
-  }
 }
 
 @media (max-width: 768px) {
@@ -969,12 +987,26 @@ section {
   }
 
   .studio-toolbar {
-    grid-template-columns: 1fr;
-    padding: 1rem;
+    padding: 0.75rem;
+    gap: 0.75rem;
   }
 
-  .tool-buttons {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .toolbar-group--tools {
+    flex: 1 1 100%;
+  }
+
+  .toolbar-group--sliders {
+    flex: 1 1 100%;
+  }
+
+  .toolbar-group--actions {
+    margin-left: 0;
+    flex: 1 1 100%;
+    justify-content: stretch;
+  }
+
+  .toolbar-group--actions .action-btn {
+    flex: 1 1 auto;
   }
 
   .tool-btn span {
@@ -982,19 +1014,18 @@ section {
   }
 
   .tool-btn {
-    padding: 0.65rem 0.25rem;
+    min-width: 40px;
+    padding: 0.5rem;
   }
 
-  .color-palette {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
+  .color-swatch {
+    width: 24px;
+    height: 24px;
   }
 
-  .toolbar-actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .action-btn--primary {
-    grid-column: span 2;
+  .color-picker-label input[type="color"] {
+    width: 32px;
+    height: 32px;
   }
 
   .contact-form {
@@ -1030,19 +1061,23 @@ section {
     aspect-ratio: 4 / 3;
   }
 
-  .tool-buttons {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.3rem;
-  }
-
-  .color-palette {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
   .canvas-wrap {
     min-height: 220px;
-    max-height: 55vh;
+    max-height: 50vh;
+  }
+
+  .studio-frame {
     border-width: 2px;
+  }
+
+  .toolbar-group--actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .toolbar-group--actions .action-btn--primary {
+    grid-column: 1 / -1;
   }
 
   .canvas-hint {
